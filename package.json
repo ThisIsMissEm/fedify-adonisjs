@@ -21,6 +21,7 @@
     ".": "./build/index.js",
     "./types": "./build/src/types.js",
     "./provider": "./build/providers/fedify.js",
+    "./services/builder": "./build/services/builder.js",
     "./services/federation": "./build/services/federation.js",
     "./middleware": "./build/src/middleware/fedify.js"
   },

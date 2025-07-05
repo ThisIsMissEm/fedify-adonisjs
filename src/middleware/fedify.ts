@@ -15,8 +15,6 @@ export default class FedifyMiddleware {
 
     const federation = await ctx.containerResolver.make('federation')
 
-    console.log({ federation })
-
     // Convert the Adonis.js Request to the Fedify Request type:
     const request = this.fromRequest(ctx.request, federation.origin)
 

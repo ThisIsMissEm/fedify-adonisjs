@@ -5,12 +5,11 @@ import type { ApplicationService, ConfigProvider } from '@adonisjs/core/types'
 import type { FederationOptions } from '../src/types.js'
 import { pathToFileURL } from 'node:url'
 import fastglob from 'fast-glob'
-import { builder } from '../src/builder.js'
 
 export default class FedifyProvider {
   constructor(protected app: ApplicationService) {}
 
-  register() {
+  async register() {
     this.app.container.singleton('fedify.config', async () => {
       const fedifyConfigProvider = this.app.config.get<ConfigProvider<FederationOptions>>('fedify')
 
@@ -29,9 +28,7 @@ export default class FedifyProvider {
 
       return config
     })
-  }
 
-  async boot() {
     const federatonDir = this.app.makePath('app', 'federation')
     const files = await fastglob(`${federatonDir}/**/*.ts`)
 
@@ -39,11 +36,13 @@ export default class FedifyProvider {
       const modulePath = pathToFileURL(file).href
 
       await import(modulePath)
-      console.log(builder)
     }
+  }
 
+  async boot() {
     this.app.container.singleton('federation', async () => {
       const fedifyConfig = await this.app.container.make('fedify.config')
+      const builder = await this.app.container.make('fedify')
 
       console.log(builder)
 

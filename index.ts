@@ -9,4 +9,3 @@
 
 export { configure } from './configure.js'
 export { defineConfig } from './src/define_config.js'
-export { builder as fedify } from './src/builder.js'
