@@ -1,0 +1,103 @@
+{
+  "name": "@fedify/adonisjs",
+  "description": "Adonis.js package integrating Fedify and Adonis.js Framework",
+  "repository": "github:fedify/adonisjs",
+  "version": "0.0.0",
+  "engines": {
+    "node": ">=22.17.0"
+  },
+  "type": "module",
+  "files": [
+    "build/src",
+    "build/providers",
+    "build/services",
+    "build/stubs",
+    "build/index.d.ts",
+    "build/index.js",
+    "build/configure.d.ts",
+    "build/configure.js"
+  ],
+  "exports": {
+    ".": "./build/index.js",
+    "./types": "./build/src/types.js",
+    "./provider": "./build/providers/fedify.js",
+    "./services/builder": "./build/services/builder.js",
+    "./services/federation": "./build/services/federation.js",
+    "./middleware": "./build/src/middleware/fedify.js"
+  },
+  "scripts": {
+    "clean": "del-cli build",
+    "copy:templates": "copyfiles \"stubs/**/*.stub\" build",
+    "check:exports": "attw --pack . --profile esm-only --ignore-rules=cjs-resolves-to-esm",
+    "check:types": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "pretest": "npm run lint",
+    "test": "c8 node --import=./tsnode.esm.js --enable-source-maps bin/test.ts",
+    "prebuild": "npm run lint && npm run clean",
+    "build": "tsc && npm run copy:templates",
+    "version": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "fedify",
+    "adonisjs",
+    "adonis",
+    "activitypub"
+  ],
+  "author": "Emelia Smith <https://github.com/thisismissem>",
+  "contributors": [
+    {
+      "name": "Emelia Smith",
+      "url": "https://github.com/thisismissem"
+    }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@adonisjs/assembler": "^7.8.2",
+    "@adonisjs/core": "^6.12.0",
+    "@adonisjs/eslint-config": "2.0.0-beta.7",
+    "@adonisjs/prettier-config": "^1.4.0",
+    "@adonisjs/tsconfig": "^1.3.0",
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.5",
+    "@japa/assert": "^4.0.1",
+    "@japa/file-system": "^2.3.2",
+    "@japa/runner": "^4.2.0",
+    "@swc/core": "^1.6.3",
+    "@types/node": "^22.13.14",
+    "c8": "^10.1.2",
+    "copyfiles": "^2.4.1",
+    "del-cli": "^5.1.0",
+    "eslint": "^9.15.0",
+    "np": "^10.0.6",
+    "prettier": "^3.3.2",
+    "ts-node-maintained": "^10.9.4",
+    "typescript": "^5.4.5",
+    "yalc": "1.0.0-pre.53"
+  },
+  "dependencies": {
+    "@fedify/fedify": "^1.7.2",
+    "@poppinss/exception": "^1.2.2",
+    "fast-glob": "^3.3.3"
+  },
+  "peerDependencies": {
+    "@adonisjs/core": "^6.19.0",
+    "@fedify/fedify": "^1.7.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
+  "c8": {
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "exclude": [
+      "tests/**"
+    ]
+  },
+  "prettier": "@adonisjs/prettier-config"
+}
