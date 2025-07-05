@@ -10,6 +10,7 @@
   "files": [
     "build/src",
     "build/providers",
+    "build/services",
     "build/stubs",
     "build/index.d.ts",
     "build/index.js",
@@ -18,7 +19,10 @@
   ],
   "exports": {
     ".": "./build/index.js",
-    "./types": "./build/src/types.js"
+    "./types": "./build/src/types.js",
+    "./provider": "./build/providers/fedify.js",
+    "./services/federation": "./build/services/federation.js",
+    "./middleware": "./build/src/middleware/fedify.js"
   },
   "scripts": {
     "clean": "del-cli build",
@@ -72,8 +76,14 @@
     "typescript": "^5.4.5",
     "yalc": "1.0.0-pre.53"
   },
+  "dependencies": {
+    "@fedify/fedify": "^1.7.2",
+    "@poppinss/exception": "^1.2.2",
+    "fast-glob": "^3.3.3"
+  },
   "peerDependencies": {
-    "@adonisjs/core": "^6.19.0"
+    "@adonisjs/core": "^6.19.0",
+    "@fedify/fedify": "^1.7.2"
   },
   "publishConfig": {
     "access": "public",
